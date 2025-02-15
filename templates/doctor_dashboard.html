@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Doctor Dashboard</h2>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>Patients</h3>
+        <div class="list-group">
+            {% for patient in patients %}
+            <div class="list-group-item test-result-item" id="patient-{{ patient.id }}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>{{ patient.username }}</h5>
+                    <div>
+                        <button class="btn btn-sm btn-primary" onclick="viewTestResults({{ patient.id }})">View Test Results</button>
+                        <button class="btn btn-sm btn-primary" onclick="addTestResult({{ patient.id }})">Add Test Result</button>
+                    </div>
+                </div>
+                <div class="test-result-details" id="test-results-{{ patient.id }}">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Add Test Result Modal -->
+<div class="modal fade" id="addTestResultModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Test Result</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="testResultForm">
+                    <input type="hidden" id="patient_id" name="patient_id">
+                    <input type="hidden" id="doctor_id" name="doctor_id" value="{{ session['user_id'] }}">
+                    <div class="mb-3">
+                        <label for="test_type" class="form-label">Test Type</label>
+                        <input type="text" class="form-control" id="test_type" name="test_type" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="result" class="form-label">Result</label>
+                        <textarea class="form-control" id="result" name="result" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Test Image (Optional)</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function formatTestResults(results) {
+    if (results.length === 0) {
+        return '<p class="text-muted">No test results found</p>';
+    }
+
+    let html = '<div class="accordion mt-3">';
+    results.forEach((result, index) => {
+        html += `
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#result-${index}">
+                        ${result.test_type} - ${result.date}
+                    </button>
+                </h2>
+                <div id="result-${index}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <p><strong>Result:</strong> ${result.result}</p>
+                        ${result.image_path ? `<img src="/images/${result.image_path}" class="test-result-image">` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    return html;
+}
+
+function viewTestResults(patientId) {
+    const detailsDiv = document.getElementById(`test-results-${patientId}`);
+    const patientDiv = document.getElementById(`patient-${patientId}`);
+    
+    if (detailsDiv.style.display === 'block') {
+        detailsDiv.style.display = 'none';
+        patientDiv.classList.remove('expanded');
+        return;
+    }
+    
+    detailsDiv.style.display = 'block';
+    patientDiv.classList.add('expanded');
+    
+    fetch(`/test_results/${patientId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                detailsDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+            } else {
+                detailsDiv.innerHTML = formatTestResults(data);
+            }
+        })
+        .catch(error => {
+            detailsDiv.innerHTML = '<div class="alert alert-danger">Error loading test results</div>';
+        });
+}
+
+function addTestResult(patientId) {
+    document.getElementById('patient_id').value = patientId;
+    new bootstrap.Modal(document.getElementById('addTestResultModal')).show();
+}
+
+document.getElementById('testResultForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    
+    try {
+        const testResponse = await fetch('/add_test_result', {
+            method: 'POST',
+            body: formData
+        });
+        const testData = await testResponse.json();
+        
+        if (testData.error) {
+            throw new Error(testData.error);
+        }
+        
+        const imageFile = document.getElementById('image').files[0];
+        if (imageFile) {
+            const imageFormData = new FormData();
+            imageFormData.append('image', imageFile);
+            imageFormData.append('test_result_id', testData.id);
+            
+            const imageResponse = await fetch(`/upload_image/${formData.get('patient_id')}`, {
+                method: 'POST',
+                body: imageFormData
+            });
+            const imageData = await imageResponse.json();
+            
+            if (imageData.error) {
+                throw new Error('Test result saved but image upload failed: ' + imageData.error);
+            }
+        }
+        
+        location.reload();
+    } catch (error) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'alert alert-danger mt-3';
+        errorDiv.textContent = error.message || 'An error occurred while saving the test result';
+        document.getElementById('testResultForm').insertAdjacentElement('beforebegin', errorDiv);
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #dc3545 !important;
+}
+
+.btn-primary {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.btn-primary:hover {
+    background-color: #bb2d3b !important;
+    border-color: #bb2d3b !important;
+}
+
+.hospital-logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.test-result-details {
+    display: none;
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.test-result-item {
+    transition: all 0.3s ease;
+}
+
+.test-result-item.expanded {
+    background-color: #f8f9fa;
+}
+
+.test-result-image {
+    max-width: 200px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

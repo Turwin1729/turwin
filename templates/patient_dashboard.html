@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Patient Dashboard</h2>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>My Test Results</h3>
+        <div class="list-group">
+            {% for result in test_results %}
+            <div class="list-group-item">
+                <h5>{{ result.test_type }}</h5>
+                <p><strong>Date:</strong> {{ result.date }}</p>
+                <p><strong>Result:</strong> {{ result.result }}</p>
+                <button class="btn btn-sm btn-primary" onclick="viewTestResult({{ result.id }})">View Details</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Profile Update Form -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Update Profile
+            </div>
+            <div class="card-body">
+                <form id="updateProfileForm">
+                    <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function viewTestResult(resultId) {
+    fetch(`/test_results/${resultId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(JSON.stringify(data, null, 2));
+            }
+        });
+}
+
+document.getElementById('updateProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch('/update_profile', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.error) {
+            alert(data.error);
+        } else if(data.status === 'success') {
+            alert('Profile updated successfully');
+            location.reload();
+        }
+    });
+});
+</script>
+{% endblock %}
