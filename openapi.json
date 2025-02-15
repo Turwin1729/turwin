@@ -2,10 +2,11 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Turwin Medical Center API",
-    "description": "API documentation for Turwin Medical Center's vulnerable patient management system",
+    "description": "API documentation for Turwin Medical Center's hospital management system. Note: This documentation reflects the intended secure behavior of the application.",
     "version": "1.0.0",
     "contact": {
-      "name": "Turwin Medical Center"
+      "name": "Security Team",
+      "email": "security@turwinmedical.example.com"
     }
   },
   "servers": [
@@ -14,12 +15,144 @@
       "description": "Development server"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT token obtained from /api/login"
+      }
+    },
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "User's username"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "User's password"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": ["username", "password", "role"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Desired username"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "User's password"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["doctor", "patient"],
+            "description": "User's role"
+          }
+        }
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique user identifier"
+          },
+          "username": {
+            "type": "string",
+            "description": "User's username"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["doctor", "patient"],
+            "description": "User's role in the system"
+          },
+          "profile_image": {
+            "type": "string",
+            "description": "URL to user's profile image"
+          }
+        }
+      },
+      "TestResultRequest": {
+        "type": "object",
+        "required": ["patient_id", "doctor_id", "test_type", "result"],
+        "properties": {
+          "patient_id": {
+            "type": "integer"
+          },
+          "doctor_id": {
+            "type": "integer"
+          },
+          "test_type": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "TestResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique test result identifier"
+          },
+          "patient_id": {
+            "type": "integer",
+            "description": "ID of the patient"
+          },
+          "doctor_id": {
+            "type": "integer",
+            "description": "ID of the doctor who ordered the test"
+          },
+          "test_type": {
+            "type": "string",
+            "description": "Type of medical test"
+          },
+          "result": {
+            "type": "string",
+            "description": "Test result details"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the test"
+          },
+          "image_path": {
+            "type": "string",
+            "description": "Path to any associated test images"
+          }
+        }
+      }
+    }
+  },
   "paths": {
     "/api/login": {
       "post": {
-        "summary": "User login",
-        "description": "Authenticate a user and return their details",
-        "tags": ["Authentication"],
+        "summary": "Authenticate user",
+        "description": "Authenticate user and return JWT token",
         "requestBody": {
           "required": true,
           "content": {
@@ -32,11 +165,20 @@
         },
         "responses": {
           "200": {
-            "description": "Successful login",
+            "description": "Login successful",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JWT token for authentication"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
                 }
               }
             }
@@ -51,7 +193,6 @@
       "post": {
         "summary": "Register new user",
         "description": "Create a new user account",
-        "tags": ["Authentication"],
         "requestBody": {
           "required": true,
           "content": {
@@ -74,7 +215,7 @@
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid request (e.g., username taken)"
           }
         }
       }
@@ -102,10 +243,52 @@
       }
     },
     "/api/users/{userId}": {
+      "get": {
+        "summary": "Get user details",
+        "description": "Retrieve user information. Users should only be able to access their own information unless they are doctors.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized access to user data"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
       "patch": {
         "summary": "Update user profile",
-        "description": "Update user information (vulnerable - no authentication check)",
-        "tags": ["Users"],
+        "description": "Update user information. Users should only be able to update their own information.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -143,8 +326,12 @@
     "/api/test-results": {
       "post": {
         "summary": "Create test result",
-        "description": "Create a new test result (vulnerable - no role validation)",
-        "tags": ["Test Results"],
+        "description": "Create a new test result. Only doctors should be able to create test results.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -250,117 +437,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "LoginRequest": {
-        "type": "object",
-        "required": ["username", "password"],
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string",
-            "format": "password"
-          }
-        }
-      },
-      "RegisterRequest": {
-        "type": "object",
-        "required": ["username", "password", "role"],
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string",
-            "format": "password"
-          },
-          "role": {
-            "type": "string",
-            "enum": ["doctor", "patient"]
-          }
-        }
-      },
-      "UserUpdateRequest": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string"
-          }
-        }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "username": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string",
-            "enum": ["doctor", "patient"]
-          },
-          "profile_image": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "TestResultRequest": {
-        "type": "object",
-        "required": ["patient_id", "doctor_id", "test_type", "result"],
-        "properties": {
-          "patient_id": {
-            "type": "integer"
-          },
-          "doctor_id": {
-            "type": "integer"
-          },
-          "test_type": {
-            "type": "string"
-          },
-          "result": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          }
-        }
-      },
-      "TestResult": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "patient_id": {
-            "type": "integer"
-          },
-          "doctor_id": {
-            "type": "integer"
-          },
-          "test_type": {
-            "type": "string"
-          },
-          "result": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "image_path": {
-            "type": "string",
-            "nullable": true
           }
         }
       }
