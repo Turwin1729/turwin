@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Turwin Medical Center API",
-    "description": "API documentation for Turwin Medical Center's hospital management system. Note: This documentation reflects the intended secure behavior of the application.",
+    "description": "API documentation for Turwin Medical Center's hospital management system",
     "version": "1.0.0",
     "contact": {
       "name": "Security Team",
@@ -223,8 +223,12 @@
     "/api/users/patients": {
       "get": {
         "summary": "Get all patients",
-        "description": "Retrieve a list of all patients (vulnerable - no authentication required)",
-        "tags": ["Users"],
+        "description": "Retrieve a list of all patients. Only accessible by doctors.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of patients",
@@ -238,6 +242,12 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Not authorized - doctors only"
           }
         }
       }
@@ -245,7 +255,7 @@
     "/api/users/{userId}": {
       "get": {
         "summary": "Get user details",
-        "description": "Retrieve user information. Users should only be able to access their own information unless they are doctors.",
+        "description": "Retrieve user information. Users can only access their own information unless they are doctors.",
         "security": [
           {
             "bearerAuth": []
@@ -273,8 +283,11 @@
               }
             }
           },
+          "401": {
+            "description": "Authentication required"
+          },
           "403": {
-            "description": "Unauthorized access to user data"
+            "description": "Not authorized to access this user's data"
           },
           "404": {
             "description": "User not found"
@@ -283,7 +296,7 @@
       },
       "patch": {
         "summary": "Update user profile",
-        "description": "Update user information. Users should only be able to update their own information.",
+        "description": "Update user information. Users can only update their own information.",
         "security": [
           {
             "bearerAuth": []
@@ -326,7 +339,7 @@
     "/api/test-results": {
       "post": {
         "summary": "Create test result",
-        "description": "Create a new test result. Only doctors should be able to create test results.",
+        "description": "Create a new test result. Only accessible by doctors.",
         "security": [
           {
             "bearerAuth": []
@@ -352,6 +365,12 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Not authorized - doctors only"
           }
         }
       }
@@ -359,8 +378,12 @@
     "/api/test-results/{patientId}": {
       "get": {
         "summary": "Get patient test results",
-        "description": "Get all test results for a patient (vulnerable - no access control)",
-        "tags": ["Test Results"],
+        "description": "Get all test results for a patient. Only accessible by doctors or the patient themselves.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "patientId",
@@ -384,6 +407,12 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Not authorized to access these test results"
           }
         }
       }
@@ -391,8 +420,12 @@
     "/api/upload-image/{userId}": {
       "post": {
         "summary": "Upload image",
-        "description": "Upload an image for a user or test result (vulnerable - no file validation)",
-        "tags": ["Images"],
+        "description": "Upload an image for a user or test result. Users can only upload images for themselves.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "userId",
