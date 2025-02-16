@@ -1,0 +1,66 @@
+{
+    "name": "google.com",
+    "type": "root",
+    "children": [
+        {
+            "name": "mail.google.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/mail/v1/messages",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "Gmail messages API"
+                },
+                {
+                    "name": "/api/mail/v1/send",
+                    "type": "api",
+                    "method": "POST",
+                    "description": "Email sending endpoint"
+                }
+            ]
+        },
+        {
+            "name": "drive.google.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/drive/v3/files",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "Drive files API"
+                },
+                {
+                    "name": "/api/drive/v3/upload",
+                    "type": "api",
+                    "method": "POST",
+                    "description": "File upload endpoint"
+                }
+            ]
+        },
+        {
+            "name": "calendar.google.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/calendar/v3/events",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "Calendar events API"
+                }
+            ]
+        },
+        {
+            "name": "apis.google.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/discovery/v1/apis",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "API discovery service"
+                }
+            ]
+        }
+    ]
+}

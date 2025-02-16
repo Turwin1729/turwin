@@ -1,0 +1,54 @@
+{
+    "name": "domain.com",
+    "type": "root",
+    "children": [
+        {
+            "name": "sub1.domain.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/v1/users",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "User management API endpoint"
+                },
+                {
+                    "name": "/api/v1/auth",
+                    "type": "api",
+                    "method": "POST",
+                    "description": "Authentication endpoint"
+                }
+            ]
+        },
+        {
+            "name": "sub2.domain.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/v2/data",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "Data retrieval endpoint"
+                }
+            ]
+        },
+        {
+            "name": "admin.domain.com",
+            "type": "subdomain",
+            "children": [
+                {
+                    "name": "/api/admin/users",
+                    "type": "api",
+                    "method": "GET",
+                    "description": "Admin user management"
+                },
+                {
+                    "name": "/api/admin/settings",
+                    "type": "api",
+                    "method": "PUT",
+                    "description": "System settings endpoint"
+                }
+            ]
+        }
+    ]
+}
