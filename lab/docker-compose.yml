@@ -40,6 +40,8 @@ services:
       dockerfile: Dockerfile
     expose:
       - "3000"
+    volumes:
+      - frontend_build:/app/build
     environment:
       - REACT_APP_API_URL=http://api1.turwin.tahabiyikli.com
     restart: unless-stopped
@@ -50,10 +52,13 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./frontend/build:/usr/share/nginx/html:ro
+      - frontend_build:/usr/share/nginx/html:ro
     depends_on:
       - frontend
       - api1
       - api2
       - api3
     restart: unless-stopped
+
+volumes:
+  frontend_build:
