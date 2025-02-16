@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T02:13:29.510566",
+    "total_requests": 4
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T02:13:16.290339",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:13:16 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "242"
+        },
+        "body": "{\n  \"id\": 3, \n  \"profile_image\": null, \n  \"role\": \"patient\", \n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NjM5Nn0.-pjr5vItoOW1jgk1FH1EFU1Y8ubIaz6WYQukVKHdGCk\", \n  \"username\": \"a\"\n}\n"
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T02:13:16.430752",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NjM5Nn0.-pjr5vItoOW1jgk1FH1EFU1Y8ubIaz6WYQukVKHdGCk"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:13:16 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "*",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "3"
+        },
+        "body": "[]\n"
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T02:13:16.431241",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NjM5Nn0.-pjr5vItoOW1jgk1FH1EFU1Y8ubIaz6WYQukVKHdGCk"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T02:13:17.922015",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NjM5Nn0.-pjr5vItoOW1jgk1FH1EFU1Y8ubIaz6WYQukVKHdGCk",
+          "content-type": "application/json"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:13:17 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "82"
+        },
+        "body": "{\n  \"id\": 3, \n  \"profile_image\": null, \n  \"role\": \"patient\", \n  \"username\": \"a\"\n}\n"
+      }
+    }
+  ]
+}

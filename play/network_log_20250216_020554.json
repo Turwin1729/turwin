@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T02:05:54.343611",
+    "total_requests": 4
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T02:05:41.115808",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "content-type": "application/json",
+          "referer": "http://localhost:3000/login",
+          "sec-ch-ua-mobile": "?0",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:05:41 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "242"
+        },
+        "body": "{\n  \"id\": 3, \n  \"profile_image\": null, \n  \"role\": \"patient\", \n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTk0MX0.hB42Z2SPj4bv2TITWKgrtXUzMQty_9cy7o87peMjrtE\", \n  \"username\": \"a\"\n}\n"
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T02:05:41.259860",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTk0MX0.hB42Z2SPj4bv2TITWKgrtXUzMQty_9cy7o87peMjrtE",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:05:41 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "*",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "3"
+        },
+        "body": "[]\n"
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T02:05:41.260458",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTk0MX0.hB42Z2SPj4bv2TITWKgrtXUzMQty_9cy7o87peMjrtE",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T02:05:42.736622",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTk0MX0.hB42Z2SPj4bv2TITWKgrtXUzMQty_9cy7o87peMjrtE",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "content-type": "application/json",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 07:05:42 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "82"
+        },
+        "body": "{\n  \"id\": 3, \n  \"profile_image\": null, \n  \"role\": \"patient\", \n  \"username\": \"a\"\n}\n"
+      }
+    }
+  ]
+}

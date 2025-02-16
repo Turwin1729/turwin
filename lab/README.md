@@ -28,7 +28,26 @@ A deliberately vulnerable web application designed to demonstrate common securit
    - No size restrictions
    - Path traversal possible
 
-## Setup
+## Quick Start with Docker
+
+The easiest way to run this application is using Docker:
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd vulnerable-hospital-app/lab
+
+# Start the application using Docker Compose
+docker-compose up --build
+```
+
+The application will be available at:
+- Frontend: http://localhost:3001
+- Backend API: http://localhost:1730
+
+## Manual Setup (Alternative)
+
+If you prefer to run the application without Docker, you can follow these steps:
 
 1. Install backend dependencies:
 ```bash

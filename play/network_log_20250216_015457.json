@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T01:54:57.974487",
+    "total_requests": 7
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T01:54:41.826888",
+      "request": {
+        "url": "http://localhost:3000/",
+        "method": "GET",
+        "headers": {
+          "upgrade-insecure-requests": "1",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "document"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "accept-ranges": "bytes",
+          "access-control-allow-headers": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-origin": "*",
+          "connection": "keep-alive",
+          "content-encoding": "br",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Sun, 16 Feb 2025 06:54:41 GMT",
+          "etag": "W/\"6ba-PQlPLBxhBc5VXN7zKnIjYQ8zQuo\"",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked",
+          "vary": "Accept-Encoding",
+          "x-powered-by": "Express"
+        },
+        "body": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <link rel=\"icon\" href=\"/favicon.ico\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <meta name=\"theme-color\" content=\"#000000\" />\n    <meta\n      name=\"description\"\n      content=\"Turwin Medical Center - Patient Portal\"\n    />\n    <link rel=\"apple-touch-icon\" href=\"/logo192.png\" />\n    <!--\n      manifest.json provides metadata used when your web app is installed on a\n      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/\n    -->\n    <link rel=\"manifest\" href=\"/manifest.json\" />\n    <!--\n      Notice the use of  in the tags above.\n      It will be replaced with the URL of the `public` folder during the build.\n      Only files inside the `public` folder can be referenced from the HTML.\n\n      Unlike \"/favicon.ico\" or \"favicon.ico\", \"/favicon.ico\" will\n      work correctly both with client-side routing and a non-root public URL.\n      Learn how to configure a non-root public URL by running `npm run build`.\n    -->\n    <title>Turwin Medical Center</title>\n  <script defer src=\"/static/js/bundle.js\"></script></head>\n  <body>\n    <noscript>You need to enable JavaScript to run this app.</noscript>\n    <div id=\"root\"></div>\n    <!--\n      This HTML file is a template.\n      If you open it directly in the browser, you will see an empty page.\n\n      You can add webfonts, meta tags, or analytics to this file.\n      The build step will place the bundled scripts into the <body> tag.\n\n      To begin the development, run `npm start` or `yarn start`.\n      To create a production bundle, use `npm run build` or `yarn build`.\n    -->\n  </body>\n</html>\n"
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T01:54:41.872464",
+      "request": {
+        "url": "http://localhost:3000/static/js/bundle.js",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "referer": "http://localhost:3000/",
+          "sec-ch-ua-mobile": "?0",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "script"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 06:54:41 GMT",
+          "content-encoding": "br",
+          "etag": "W/\"38c247-nkrf0QrHr8GhNGkuhTwqPSq0YAo\"",
+          "x-powered-by": "Express",
+          "vary": "Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/javascript; charset=utf-8",
+          "access-control-allow-origin": "*",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "accept-ranges": "bytes",
+          "access-control-allow-headers": "*",
+          "keep-alive": "timeout=5"
+        },
+        "body": "<binary content>"
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T01:54:42.407928",
+      "request": {
+        "url": "http://localhost:3000/static/media/hospital.c795e241f63a00b07c99.png",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "referer": "http://localhost:3000/",
+          "sec-ch-ua-mobile": "?0",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "image"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 06:54:42 GMT",
+          "etag": "W/\"dc55-QI3VlNSAYakoAckq3zcJBqqUXkg\"",
+          "x-powered-by": "Express",
+          "access-control-allow-methods": "*",
+          "content-type": "image/png",
+          "access-control-allow-origin": "*",
+          "connection": "keep-alive",
+          "accept-ranges": "bytes",
+          "access-control-allow-headers": "*",
+          "content-length": "56405",
+          "keep-alive": "timeout=5"
+        },
+        "body": "<binary content>"
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T01:54:44.773855",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "content-type": "application/json",
+          "referer": "http://localhost:3000/login",
+          "sec-ch-ua-mobile": "?0",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 06:54:44 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "242"
+        },
+        "body": "<binary content>"
+      }
+    },
+    {
+      "id": 5,
+      "timestamp": "2025-02-16T01:54:44.961277",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTI4NH0.IeAjPnw80EHVZqB2UGXGX1A-E_QfllPGup7NgyE7NSQ",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 06:54:44 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "*",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "3"
+        },
+        "body": "<binary content>"
+      }
+    },
+    {
+      "id": 6,
+      "timestamp": "2025-02-16T01:54:44.962004",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTI4NH0.IeAjPnw80EHVZqB2UGXGX1A-E_QfllPGup7NgyE7NSQ",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 7,
+      "timestamp": "2025-02-16T01:54:46.386442",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "sec-ch-ua": "\"Chromium\";v=\"121\", \"Not A(Brand\";v=\"99\"",
+          "sec-ch-ua-mobile": "?0",
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc3NTI4NH0.IeAjPnw80EHVZqB2UGXGX1A-E_QfllPGup7NgyE7NSQ",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "content-type": "application/json",
+          "accept": "application/json, text/plain, */*",
+          "referer": "http://localhost:3000/dashboard",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "date": "Sun, 16 Feb 2025 06:54:46 GMT",
+          "server": "Werkzeug/2.0.1 Python/3.9.20",
+          "x-powered-by": "Express",
+          "vary": "Origin, Accept-Encoding",
+          "access-control-allow-methods": "*",
+          "content-type": "application/json",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-credentials": "true",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "*",
+          "content-length": "82"
+        },
+        "body": "<binary content>"
+      }
+    }
+  ]
+}
