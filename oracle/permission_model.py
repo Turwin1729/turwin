@@ -3,6 +3,8 @@ import pandas as pd
 from openai import OpenAI
 from typing import Dict, List, Any
 import logging
+import base64
+from urllib.parse import urlparse
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,14 +50,37 @@ class PermissionModel:
         """Analyze network traffic to understand access patterns."""
         access_patterns = []
         
-        for entry in self.network_log:
+        for entry in self.network_log.get('requests', []):
+            request = entry.get('request', {})
+            response = entry.get('response', {})
+            
+            # Try to extract user from request headers
+            auth_header = request.get('headers', {}).get('authorization')
+            user_id = None
+            if auth_header and auth_header.startswith('Bearer '):
+                try:
+                    token = auth_header[7:]  # Remove 'Bearer ' prefix
+                    payload = token.split('.')[1]  # Get payload part
+                    payload += '=' * (-len(payload) % 4)  # Add padding
+                    decoded = base64.b64decode(payload)
+                    data = json.loads(decoded)
+                    user_id = str(data.get('user_id'))
+                except:
+                    pass
+            
+            # Extract path from URL
+            url = request.get('url', '')
+            path = urlparse(url).path
+            
             pattern = {
-                'user': entry.get('user'),
-                'method': entry.get('method'),
-                'path': entry.get('path'),
-                'status_code': entry.get('status_code')
+                'user': user_id,
+                'method': request.get('method'),
+                'path': path,
+                'status_code': response.get('status')
             }
-            access_patterns.append(pattern)
+            
+            if all(v is not None for v in pattern.values()):
+                access_patterns.append(pattern)
         
         return access_patterns
 

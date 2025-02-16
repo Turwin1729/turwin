@@ -1,7 +1,8 @@
 import json
 import logging
+import base64
 from typing import Dict, Any, Optional
-from permission_model import PermissionModel
+from .permission_model import PermissionModel
 from urllib.parse import urlparse, parse_qs
 
 logging.basicConfig(level=logging.INFO)
@@ -18,10 +19,8 @@ class Oracle:
         """Extract path templates from OpenAPI spec and map them to their patterns."""
         templates = {}
         for path in self.openapi_spec.get('paths', {}):
-            # Convert OpenAPI path template to regex pattern
-            # e.g., /users/{id} -> /users/[^/]+
-            template = path.replace('{', '[^/]+').replace('}', '')
-            templates[template] = path
+            # Store the original path as the value
+            templates[path] = path
         return templates
 
     def _match_path_to_template(self, request_path: str) -> Optional[str]:
@@ -31,11 +30,27 @@ class Oracle:
         
         # Try direct match first
         if path in self._path_templates:
+            # print(f"🔹 Direct match: {path} -> {self._path_templates[path]}")
             return path
             
-        # Try pattern matching
-        for template_pattern, original_template in self._path_templates.items():
-            if path.startswith(template_pattern.split('[')[0]):
+        # Try pattern matching by replacing parameters with actual values
+        path_parts = path.split('/')
+        for template, original_template in self._path_templates.items():
+            template_parts = template.split('/')
+            
+            # Skip if different number of parts
+            if len(path_parts) != len(template_parts):
+                continue
+                
+            # Check if all parts match (either exactly or parameter matches)
+            matches = True
+            for path_part, template_part in zip(path_parts, template_parts):
+                if not (template_part.startswith('{') and template_part.endswith('}')) and path_part != template_part:
+                    matches = False
+                    break
+                    
+            if matches:
+                # print(f"🔹 Pattern match: {path} -> {original_template}")
                 return original_template
                 
         return None
@@ -46,31 +61,60 @@ class Oracle:
         path_parts = actual_path.split('/')
         
         if len(template_parts) != len(path_parts):
+            logger.warning(f"Length mismatch: {template_parts} != {path_parts}")
             return None
             
-        # Find the part with {id} or similar in template
+        # Find any part with {parameter} in template
         for i, (template_part, path_part) in enumerate(zip(template_parts, path_parts)):
             if template_part.startswith('{') and template_part.endswith('}'):
                 # Extract the type from the path template
                 obj_type = template_parts[i-1] if i > 0 else 'unknown'
+                # print(f"Found object type: {obj_type}, part: {path_part}")
                 return f"{obj_type}[{path_part}]"
+                
+        # If no parameter found but path exists in OpenAPI spec, use the last non-empty part as type
+        if template in self.openapi_spec.get('paths', {}):
+            non_empty_parts = [p for p in template_parts if p]
+            if non_empty_parts:
+                obj_type = non_empty_parts[-1]
+                return f"{obj_type}[collection]"
                 
         return None
 
     def _extract_user(self, request: Dict[str, Any]) -> Optional[str]:
         """Extract user information from request headers or body."""
         # Try Authorization header
-        auth_header = request.get('headers', {}).get('Authorization')
+        auth_header = request.get('headers', {}).get('authorization')
         if auth_header:
             if auth_header.startswith('Bearer '):
-                # You might want to decode JWT token here
-                return auth_header[7:]  # Remove 'Bearer ' prefix
+                # Try to decode JWT token
+                try:
+                    token = auth_header[7:]  # Remove 'Bearer ' prefix
+                    payload = token.split('.')[1]  # Get payload part
+                    # Add padding if needed
+                    payload += '=' * (-len(payload) % 4)
+                    decoded = base64.b64decode(payload)
+                    data = json.loads(decoded)
+                    if 'user_id' in data:
+                        return str(data['user_id'])
+                except:
+                    pass
+                return token
                 
         # Try user information in cookies
-        cookies = request.get('headers', {}).get('Cookie', '')
-        if 'user=' in cookies:
-            return cookies.split('user=')[1].split(';')[0]
-            
+        cookies = request.get('headers', {}).get('cookie', '')
+        if 'session_token=' in cookies:
+            try:
+                token = cookies.split('session_token=')[1].split(';')[0]
+                payload = token.split('.')[1]
+                payload += '=' * (-len(payload) % 4)
+                decoded = base64.b64decode(payload)
+                data = json.loads(decoded)
+                if 'user_id' in data:
+                    return str(data['user_id'])
+            except:
+                pass
+                
         # Try user information in request body
         body = request.get('body', {})
         if isinstance(body, str):
@@ -80,8 +124,10 @@ class Oracle:
                 pass
                 
         if isinstance(body, dict):
-            return body.get('user') or body.get('username') or body.get('user_id')
-            
+            for key in ['user_id', 'user', 'username', 'id']:
+                if key in body:
+                    return str(body[key])
+                    
         return None
 
     def check_violation(self, request: Dict[str, Any], response: Dict[str, Any]) -> bool:

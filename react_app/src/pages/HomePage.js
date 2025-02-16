@@ -141,19 +141,25 @@ const CloseButton = styled.button`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+`;
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [showTooltip, setShowTooltip] = useState(false);
   const [website, setWebsite] = useState('');
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState('');
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    if (file && (file.type === 'application/json' || file.type === 'application/xml')) {
+    if (file && (file.type === 'application/json' || file.type === 'application/yaml')) {
       setSelectedFile(file);
-      // Here you would typically send the file to your backend for parsing
-      // For now, we'll just store it in state
+      setError('');
     }
   };
 
@@ -161,9 +167,35 @@ const HomePage = () => {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = () => {
-    if (website && selectedFile) {
-      navigate('/visualization', { state: { website } });
+  const handleSubmit = async () => {
+    if (!website) {
+      setError('Please enter a domain');
+      return;
+    }
+
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/scan?domain=${encodeURIComponent(website)}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      console.log('Response:', data);
+      
+      if (data.status === 'error') {
+        setError(data.message);
+      } else {
+        // Navigate to visualization on success
+        navigate('/visualization', { state: { website } });
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      setError('Failed to connect to backend server. Make sure it is running.');
     }
   };
 
@@ -216,7 +248,7 @@ const HomePage = () => {
             <input
               ref={fileInputRef}
               type="file"
-              accept=".json,.xml"
+              accept=".json,.yaml,.yml"
               onChange={handleFileUpload}
               style={{ display: 'none' }}
             />
@@ -226,6 +258,11 @@ const HomePage = () => {
             placeholder="turwinmc.com"
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleSubmit();
+              }
+            }}
           />
 
           <SubmitButton
@@ -236,6 +273,7 @@ const HomePage = () => {
             →
           </SubmitButton>
         </InputGroup>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
       </HomeContainer>
     </>
   );
