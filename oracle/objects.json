@@ -1,0 +1,62 @@
+object_table1 = {
+    "users[1]": {
+        "id": 3,
+        "username": "a",
+        "role": "patient",
+        "profile_image": None
+    },
+    "users[2]": {
+        "id": 2,
+        "username": "b",
+        "role": "doctor",
+        "profile_image": None
+    },
+    "users[3]": {
+        "id": 1,
+        "username": "Test ",
+        "role": None,
+        "profile_image": None
+    },
+    "users[4]": {
+        "id": 4,
+        "username": "su",
+        "role": None,
+        "profile_image": None
+    },
+    "test_results[1]": {
+        "id": 14,
+        "patient_id": None,
+        "doctor_id": None,
+        "test_type": "Blood Test",
+        "result": "Normal Range - 120/80",
+        "date": "2025-02-16",
+        "image_path": None
+    },
+    "test_results[2]": {
+        "id": 1,
+        "patient_id": None,
+        "doctor_id": 2,
+        "test_type": "asd",
+        "result": "asd",
+        "date": "2025-02-16",
+        "image_path": None
+    },
+    "test_results[3]": {
+        "id": 2,
+        "patient_id": None,
+        "doctor_id": 2,
+        "test_type": "asdas",
+        "result": "asdasd",
+        "date": "2025-02-16",
+        "image_path": None
+    },
+    "test_results[4]": {
+        "id": 8,
+        "patient_id": None,
+        "doctor_id": 2,
+        "test_type": "Blood Test",
+        "result": "Normal Range - 120/80",
+        "date": "2025-02-16",
+        "image_path": None
+    }
+}

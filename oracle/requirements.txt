@@ -1,2 +1,2 @@
-dataclasses>=0.6
-typing>=3.7.4
+pandas>=2.0.0
+openai>=1.0.0

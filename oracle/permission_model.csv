@@ -1,0 +1,9 @@
+user,object,method,value
+patient_3,test-results[3],read,True
+patient_3,test-results[3],read,True
+patient_3,users[3],update,True
+doctor_2,users,read,True
+doctor_2,users,read,True
+doctor_2,test-results[1],read,True
+doctor_2,test-results,create,True
+doctor_2,test-results[1],read,True
