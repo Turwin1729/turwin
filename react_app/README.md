@@ -1,4 +1,4 @@
-# Windusrfer React Application
+#  React Application
 
 A modern React web application featuring a sleek dark mode interface and interactive tree visualization.
 
@@ -15,8 +15,8 @@ A modern React web application featuring a sleek dark mode interface and interac
 To run the application, simply use:
 
 ```bash
-docker build -t windusrfer-app .
-docker run -p 1723:1723 windusrfer-app
+docker build -t react-app .
+docker run -p 1723:1723 react-app
 ```
 
 The application will be available at `http://localhost:1723`
