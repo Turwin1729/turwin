@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T05:30:37.693900",
+    "total_requests": 4
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T05:30:21.384835",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": {
+          "username": "a",
+          "password": "a"
+        },
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "242",
+          "set-cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U; Expires=Mon, 17 Feb 2025 10:30:21 GMT; Max-Age=86400; Path=/; SameSite=Lax",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:30:21 GMT",
+          "connection": "close"
+        },
+        "body": null
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T05:30:21.748845",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "3",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:30:21 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": null
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T05:30:21.752403",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "3",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:30:21 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": null
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T05:30:24.397312",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U",
+          "content-type": "application/json",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODIyMX0.pBbT-frFmCvvwZrsUl_VZk2GAydPV6R0ajQz33h0b1U",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": {
+          "username": "a"
+        },
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "82",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:30:24 GMT",
+          "connection": "close"
+        },
+        "body": null
+      }
+    }
+  ]
+}

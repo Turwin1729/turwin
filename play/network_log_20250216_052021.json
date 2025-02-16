@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T05:20:21.707676",
+    "total_requests": 4
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T05:20:05.467932",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": {
+          "username": "a",
+          "password": "a"
+        },
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T05:20:05.977194",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T05:20:05.979032",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T05:20:08.421533",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04",
+          "content-type": "application/json",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4NzYwNX0.ZHMKxNBrKNhcOIUbo-oV114B0R2saqYBu-tWIxDOM04",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": {
+          "username": "a"
+        },
+        "resource_type": "xhr"
+      }
+    }
+  ]
+}

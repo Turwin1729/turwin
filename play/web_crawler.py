@@ -96,15 +96,22 @@ class WebCrawler:
             with open(credentials_file, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    credentials.append(row)
-                    # Initialize tracking sets for each user
-                    username = row['username']
-                    self.visited_urls_by_user[username] = set()
-                    self.clicked_elements_by_user[username] = set()
-            print(f"📝 Loaded {len(credentials)} sets of credentials")
+                    credentials.append({
+                        'username': row['username'],
+                        'password': row['password'],
+                        'role': row['role']
+                    })
+            print(f"📋 Loaded {len(credentials)} sets of credentials")
+            for cred in credentials:
+                print(f"  - {cred['username']} ({cred['role']})")
+            return credentials
         except Exception as e:
-            print(f"⚠️ Error loading credentials: {e}")
-        return credentials
+            print(f"⚠️ Error loading credentials: {str(e)}")
+            # Return default credentials if file not found
+            return [
+                {'username': 'a', 'password': 'a', 'role': 'patient'},
+                {'username': 'b', 'password': 'b', 'role': 'doctor'}
+            ]
 
     def filter_request_headers(self, headers: Dict[str, str]) -> Dict[str, str]:
         """Filter request headers to keep only important ones"""
@@ -129,7 +136,7 @@ class WebCrawler:
         body = None
         try:
             if request.method in ['POST', 'PUT', 'PATCH']:
-                post_data = request.post_data
+                post_data = await request.post_data()
                 if post_data:
                     try:
                         # Try to decode as JSON if it's JSON content
@@ -161,9 +168,9 @@ class WebCrawler:
         if body:
             print(f"📦 Request Body: {json.dumps(body, indent=2)}")
 
-    async def log_response(self, response: Response):
+    async def log_response(self, response):
         """Log response details"""
-        request = response.request
+        request = response['request']
         
         # Skip if we shouldn't log this request
         if not self.should_log_request(request.url, request.resource_type):
@@ -173,33 +180,66 @@ class WebCrawler:
         for entry in self.network_log:
             if entry['request']['url'] == request.url and 'response' not in entry:
                 # Get response headers (keep all response headers)
-                headers = dict(response.headers)
+                headers = dict(response['headers'])
                 
-                # Always try to get response body
-                try:
-                    body = await response.text()
-                    # If it's JSON, parse it to make it readable
-                    if 'application/json' in response.headers.get('content-type', ''):
-                        try:
-                            body = json.loads(body)
-                            body = json.dumps(body, indent=2)
-                        except:
-                            pass
-                except Exception as e:
-                    print(f"⚠️ Failed to get response body for {request.url}: {str(e)}")
-                    body = None
+                # Parse response body if it's JSON
+                body = response['body']
+                if body and 'application/json' in response['headers'].get('content-type', ''):
+                    try:
+                        body = json.loads(body)
+                        body = json.dumps(body, indent=2)
+                    except:
+                        pass
                 
                 # Add response data to the existing entry
                 entry['response'] = {
-                    'status': response.status,
-                    'status_text': response.status_text,
+                    'status': response['status'],
+                    'status_text': response['status_text'],
                     'headers': headers,
                     'body': body
                 }
-                print(f"📨 Response #{entry['id']}: {response.status} {response.url}")
+                print(f"📨 Response #{entry['id']}: {response['status']} {request.url}")
                 if body:
                     print(f"📦 Response Body: {body}")
                 break
+
+    async def route_handler(self, route):
+        """Handle route interception for request/response logging"""
+        request = route.request
+        
+        try:
+            # Continue the route and get response
+            response = await route.fetch()
+            
+            # Log request first
+            await self.log_request(request)
+            
+            # Get response body before creating response object
+            response_body = None
+            try:
+                response_body = await response.text()
+            except Exception as e:
+                print(f"⚠️ Failed to get response body: {str(e)}")
+            
+            # Now log response
+            # Create a response-like object with the request reference
+            response_with_request = {
+                'url': request.url,
+                'status': response.status,
+                'status_text': response.status_text,
+                'headers': response.headers,
+                'body': response_body,
+                'request': request
+            }
+            
+            await self.log_response(response_with_request)
+            
+            # Continue with the response
+            await route.fulfill(response=response)
+            
+        except Exception as e:
+            print(f"❌ Error in route handler: {str(e)}")
+            await route.continue_()
 
     async def wait_for_app_load(self, page: Page):
         """Wait for React app to load and render"""
@@ -253,25 +293,6 @@ class WebCrawler:
         except Exception as e:
             print(f"❌ Error during login: {str(e)}")
             return False
-
-    async def route_handler(self, route):
-        """Handle route interception for request/response logging"""
-        request = route.request
-        
-        try:
-            # Continue the route and get response
-            response = await route.fetch()
-            
-            # Log request and response
-            await self.log_request(request)
-            await self.log_response(response)
-            
-            # Continue with the response
-            await route.fulfill(response=response)
-            
-        except Exception as e:
-            print(f"❌ Error in route handler: {str(e)}")
-            await route.continue_()
 
     async def is_logged_in(self, page: Page) -> bool:
         """Check if user is logged in"""
@@ -458,6 +479,8 @@ class WebCrawler:
         # Initialize tracking for this user if not exists
         if self.current_user not in self.visited_urls_by_user:
             self.visited_urls_by_user[self.current_user] = set()
+        if self.current_user not in self.clicked_elements_by_user:
+            self.clicked_elements_by_user[self.current_user] = set()
         
         # Navigate to start URL
         print(f"🌐 Navigating to {self.start_url}")
@@ -479,7 +502,9 @@ class WebCrawler:
         # Logout
         await self.handle_logout(page)
         
-        # Wait for logout to complete
+        # Wait for logout to complete and return to login page
+        await asyncio.sleep(2)
+        await page.goto(self.start_url)
         await asyncio.sleep(2)
 
     async def explore_page(self, page: Page, depth: int = 0, max_depth: int = 5):
@@ -573,6 +598,10 @@ class WebCrawler:
             
             # Set up request interception
             await page.route("**/*", self.route_handler)
+            
+            print("\n🔄 Starting crawl with credentials:")
+            for cred in self.credentials:
+                print(f"  - {cred['username']} ({cred['role']})")
             
             # Explore with each set of credentials
             for credentials in self.credentials:

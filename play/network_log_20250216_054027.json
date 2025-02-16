@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "start_url": "http://localhost:3000/",
+    "timestamp": "2025-02-16T05:40:27.609457",
+    "total_requests": 10
+  },
+  "requests": [
+    {
+      "id": 1,
+      "timestamp": "2025-02-16T05:39:36.845877",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "242",
+          "set-cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q; Expires=Mon, 17 Feb 2025 10:39:36 GMT; Max-Age=86400; Path=/; SameSite=Lax",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:36 GMT",
+          "connection": "close"
+        },
+        "body": "{\n  \"id\": 3,\n  \"profile_image\": null,\n  \"role\": \"patient\",\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q\",\n  \"username\": \"a\"\n}"
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-02-16T05:39:37.192475",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "3",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:37 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": "[]"
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-02-16T05:39:37.193584",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/3",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "3",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:37 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": "[]"
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-02-16T05:39:39.852734",
+      "request": {
+        "url": "http://localhost:3000/api/users/3",
+        "method": "PATCH",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q",
+          "content-type": "application/json",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "82",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:39 GMT",
+          "connection": "close"
+        },
+        "body": "{\n  \"id\": 3,\n  \"profile_image\": null,\n  \"role\": \"patient\",\n  \"username\": \"a\"\n}"
+      }
+    },
+    {
+      "id": 5,
+      "timestamp": "2025-02-16T05:39:59.127166",
+      "request": {
+        "url": "http://localhost:3000/api/login",
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTczOTc4ODc3Nn0.4TiYfKJbIeSHHBplk5NlRnz8Dp4yOvmntrBcXRVNx-Q",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "240",
+          "set-cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY; Expires=Mon, 17 Feb 2025 10:39:59 GMT; Max-Age=86400; Path=/; SameSite=Lax",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:59 GMT",
+          "connection": "close"
+        },
+        "body": "{\n  \"id\": 2,\n  \"profile_image\": null,\n  \"role\": \"doctor\",\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY\",\n  \"username\": \"b\"\n}"
+      }
+    },
+    {
+      "id": 6,
+      "timestamp": "2025-02-16T05:39:59.473970",
+      "request": {
+        "url": "http://localhost:3000/api/users/patients",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "223",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:59 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"profile_image\": null,\n    \"username\": \"Test \"\n  },\n  {\n    \"id\": 3,\n    \"profile_image\": null,\n    \"username\": \"a\"\n  },\n  {\n    \"id\": 4,\n    \"profile_image\": null,\n    \"username\": \"su\"\n  }\n]"
+      }
+    },
+    {
+      "id": 7,
+      "timestamp": "2025-02-16T05:39:59.475955",
+      "request": {
+        "url": "http://localhost:3000/api/users/patients",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "223",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:39:59 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding"
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"profile_image\": null,\n    \"username\": \"Test \"\n  },\n  {\n    \"id\": 3,\n    \"profile_image\": null,\n    \"username\": \"a\"\n  },\n  {\n    \"id\": 4,\n    \"profile_image\": null,\n    \"username\": \"su\"\n  }\n]"
+      }
+    },
+    {
+      "id": 8,
+      "timestamp": "2025-02-16T05:40:02.151789",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/1",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:40:02 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding",
+          "content-encoding": "br",
+          "transfer-encoding": "chunked"
+        },
+        "body": "[\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 1,\n    \"image_path\": null,\n    \"result\": \"asd\",\n    \"test_type\": \"asd\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 2,\n    \"image_path\": null,\n    \"result\": \"asdasd\",\n    \"test_type\": \"asdas\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 3,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 4,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 5,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 6,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 7,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 8,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 9,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 11,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 12,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  }\n]"
+      }
+    },
+    {
+      "id": 9,
+      "timestamp": "2025-02-16T05:40:09.452519",
+      "request": {
+        "url": "http://localhost:3000/api/test-results",
+        "method": "POST",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "content-type": "application/json",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "origin": "http://localhost:3000"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "http://localhost:1730",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "content-length": "108",
+          "access-control-allow-credentials": "true",
+          "vary": "Origin, Accept-Encoding",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:40:09 GMT",
+          "connection": "close"
+        },
+        "body": "{\n  \"date\": \"2025-02-16\",\n  \"id\": 13,\n  \"result\": \"Normal Range - 120/80\",\n  \"test_type\": \"Blood Test\"\n}"
+      }
+    },
+    {
+      "id": 10,
+      "timestamp": "2025-02-16T05:40:09.784302",
+      "request": {
+        "url": "http://localhost:3000/api/test-results/1",
+        "method": "GET",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY",
+          "cookie": "session_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJyb2xlIjoiZG9jdG9yIiwiZXhwIjoxNzM5Nzg4Nzk5fQ.ZwY1_86xnIB-4K_1zazIZA22lpkv9LWwaBLo7B7oFNY"
+        },
+        "post_data": null,
+        "resource_type": "xhr"
+      },
+      "response": {
+        "status": 200,
+        "status_text": "OK",
+        "headers": {
+          "x-powered-by": "Express",
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "content-type": "application/json",
+          "server": "Werkzeug/2.0.1 Python/3.11.4",
+          "date": "Sun, 16 Feb 2025 10:40:09 GMT",
+          "connection": "close",
+          "vary": "Accept-Encoding",
+          "content-encoding": "br",
+          "transfer-encoding": "chunked"
+        },
+        "body": "[\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 1,\n    \"image_path\": null,\n    \"result\": \"asd\",\n    \"test_type\": \"asd\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 2,\n    \"image_path\": null,\n    \"result\": \"asdasd\",\n    \"test_type\": \"asdas\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 3,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 4,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 5,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 6,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 7,\n    \"image_path\": null,\n    \"result\": \"\",\n    \"test_type\": \"\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 8,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 9,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 11,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 12,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  },\n  {\n    \"date\": \"2025-02-16\",\n    \"doctor_id\": 2,\n    \"id\": 13,\n    \"image_path\": null,\n    \"result\": \"Normal Range - 120/80\",\n    \"test_type\": \"Blood Test\"\n  }\n]"
+      }
+    }
+  ]
+}
