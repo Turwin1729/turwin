@@ -13,8 +13,8 @@ class WebCrawler:
     def __init__(self, start_url: str, credentials_file: str):
         self.start_url = start_url
         self.credentials = self.load_credentials(credentials_file)
-        self.visited_urls_by_user = {}
-        self.clicked_elements_by_user = {}
+        self.visited_urls_by_user = {}  # Initialize empty dict
+        self.clicked_elements_by_user = {}  # Initialize empty dict
         self.current_user = None
         self.request_counter = 0
         self.network_log = []
@@ -126,9 +126,21 @@ class WebCrawler:
         headers = self.filter_request_headers(request.headers)
         
         # Get request body if it exists
+        body = None
         try:
-            body = await request.post_data() if request.post_data else await request.body()
-        except:
+            if request.method in ['POST', 'PUT', 'PATCH']:
+                post_data = request.post_data
+                if post_data:
+                    try:
+                        # Try to decode as JSON if it's JSON content
+                        if 'application/json' in request.headers.get('content-type', ''):
+                            body = json.loads(post_data)
+                        else:
+                            body = post_data
+                    except:
+                        body = post_data
+        except Exception as e:
+            print(f"⚠️ Failed to get request body: {str(e)}")
             body = None
         
         request_data = {
@@ -137,7 +149,7 @@ class WebCrawler:
             'request': {
                 'url': request.url,
                 'method': request.method,
-                'headers': headers,  # Now contains only important headers
+                'headers': headers,
                 'post_data': body,
                 'resource_type': request.resource_type
             }
@@ -146,6 +158,8 @@ class WebCrawler:
         # Store request data temporarily
         self.network_log.append(request_data)
         print(f"📡 Request #{request_id}: {request.method} {request.url}")
+        if body:
+            print(f"📦 Request Body: {json.dumps(body, indent=2)}")
 
     async def log_response(self, response: Response):
         """Log response details"""
@@ -157,13 +171,20 @@ class WebCrawler:
         
         # Find the corresponding request in our log
         for entry in self.network_log:
-            if entry['request']['url'] == request.url:
+            if entry['request']['url'] == request.url and 'response' not in entry:
                 # Get response headers (keep all response headers)
                 headers = dict(response.headers)
                 
                 # Always try to get response body
                 try:
                     body = await response.text()
+                    # If it's JSON, parse it to make it readable
+                    if 'application/json' in response.headers.get('content-type', ''):
+                        try:
+                            body = json.loads(body)
+                            body = json.dumps(body, indent=2)
+                        except:
+                            pass
                 except Exception as e:
                     print(f"⚠️ Failed to get response body for {request.url}: {str(e)}")
                     body = None
@@ -176,25 +197,9 @@ class WebCrawler:
                     'body': body
                 }
                 print(f"📨 Response #{entry['id']}: {response.status} {response.url}")
+                if body:
+                    print(f"📦 Response Body: {body}")
                 break
-
-    def save_network_log(self):
-        """Save the network log to a JSON file"""
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f'network_log_{timestamp}.json'
-        
-        with open(filename, 'w') as f:
-            json.dump({
-                'metadata': {
-                    'start_url': self.start_url,
-                    'timestamp': datetime.now().isoformat(),
-                    'total_requests': self.request_counter
-                },
-                'requests': self.network_log
-            }, f, indent=2)
-        
-        print(f"\n💾 Saved network log to {filename}")
-        return filename
 
     async def wait_for_app_load(self, page: Page):
         """Wait for React app to load and render"""
@@ -215,108 +220,67 @@ class WebCrawler:
                   for keyword in self.login_keywords)
 
     async def handle_login(self, page: Page, credentials: Dict[str, str]):
-        """Attempt to log in using provided credentials"""
-        await self.wait_for_app_load(page)
+        """Handle login process"""
+        print(f"\n🔑 Attempting login with credentials: {credentials['username']} (role: {credentials['role']})")
         
-        username = credentials['username']
-        password = credentials['password']
-        role = credentials['role']
+        # Fill login form
+        username_selector = 'input[type="text"]'
+        password_selector = 'input[type="password"]'
         
-        print(f"\n🔑 Attempting login with credentials: {username} (role: {role})")
-        
-        # More comprehensive selectors for React apps
-        username_selectors = [
-            'input[type="text"]',
-            'input[type="email"]',
-            'input[name="username"]',
-            'input[name="email"]',
-            'input[id="username"]',
-            'input[id="email"]',
-            'input[placeholder*="username" i]',
-            'input[placeholder*="email" i]',
-            'input[aria-label*="username" i]',
-            'input[aria-label*="email" i]',
-            '[data-testid*="username"]',
-            '[data-testid*="email"]'
-        ]
-        
-        password_selectors = [
-            'input[type="password"]',
-            'input[name="password"]',
-            'input[id="password"]',
-            'input[placeholder*="password" i]',
-            'input[aria-label*="password" i]',
-            '[data-testid*="password"]'
-        ]
-        
-        # Try to fill in username
-        username_filled = False
-        for selector in username_selectors:
-            try:
-                # Reduced timeout from 5000ms to 1000ms
-                await page.wait_for_selector(selector, timeout=1000)
-                await page.fill(selector, username)
-                print(f"✍️ Filled username field using selector: {selector}")
-                username_filled = True
-                break
-            except:
-                continue
+        try:
+            # Fill username
+            await page.fill(username_selector, credentials['username'])
+            print(f"✍️ Filled username field using selector: {username_selector}")
+            
+            # Fill password
+            await page.fill(password_selector, credentials['password'])
+            print(f"✍️ Filled password field using selector: {password_selector}")
+            
+            # Click login button
+            await page.click('button[type="submit"]')
+            
+            # Wait for navigation
+            await asyncio.sleep(2)
+            
+            # Check if login was successful
+            if await self.is_logged_in(page):
+                print(f"✅ Successfully logged in as {credentials['username']} ({credentials['role']})")
+                return True
+            else:
+                print(f"❌ Login failed for {credentials['username']}")
+                return False
                 
-        if not username_filled:
-            print("❌ Could not find username field")
+        except Exception as e:
+            print(f"❌ Error during login: {str(e)}")
             return False
-                
-        # Try to fill in password
-        password_filled = False
-        for selector in password_selectors:
-            try:
-                # Reduced timeout from 5000ms to 1000ms
-                await page.wait_for_selector(selector, timeout=1000)
-                await page.fill(selector, password)
-                print(f"✍️ Filled password field using selector: {selector}")
-                password_filled = True
-                break
-            except:
-                continue
-                
-        if not password_filled:
-            print("❌ Could not find password field")
+
+    async def route_handler(self, route):
+        """Handle route interception for request/response logging"""
+        request = route.request
+        
+        try:
+            # Continue the route and get response
+            response = await route.fetch()
+            
+            # Log request and response
+            await self.log_request(request)
+            await self.log_response(response)
+            
+            # Continue with the response
+            await route.fulfill(response=response)
+            
+        except Exception as e:
+            print(f"❌ Error in route handler: {str(e)}")
+            await route.continue_()
+
+    async def is_logged_in(self, page: Page) -> bool:
+        """Check if user is logged in"""
+        # Check for logout button
+        try:
+            await page.wait_for_selector('button:has-text("Logout")', timeout=1000)
+            return True
+        except:
             return False
-        
-        # Try to find and click submit button
-        submit_selectors = [
-            'button[type="submit"]',
-            'input[type="submit"]',
-            'button:has-text("Login")',
-            'button:has-text("Sign in")',
-            'button:has-text("Log in")',
-            'button:has-text("Submit")',
-            '[role="button"]:has-text("Login")',
-            '[role="button"]:has-text("Sign in")',
-            'button.login-button',
-            '#login-button',
-            '[data-testid*="login"]',
-            '[data-testid*="submit"]'
-        ]
-        
-        for selector in submit_selectors:
-            try:
-                # Reduced timeout from 5000ms to 1000ms
-                submit_button = await page.wait_for_selector(selector, timeout=1000)
-                if submit_button:
-                    await submit_button.click()
-                    await page.wait_for_load_state('networkidle', timeout=3000)
-                    await self.wait_for_app_load(page)
-                    
-                    # Check if login was successful (no longer on login page)
-                    if not await self.is_login_page(page):
-                        print(f"✅ Successfully logged in as {username} ({role})")
-                        return True
-            except:
-                continue
-                
-        print("❌ Login attempt failed")
-        return False
 
     async def find_logout_button(self, page: Page) -> bool:
         """Find and click logout button"""
@@ -361,6 +325,11 @@ class WebCrawler:
             except Exception as e:
                 continue
         return False
+
+    async def handle_logout(self, page: Page):
+        """Handle logout"""
+        if not await self.find_logout_button(page):
+            print("❌ Failed to find logout button")
 
     async def fill_form(self, page: Page, element_id: str):
         """Fill a form with test data"""
@@ -508,7 +477,10 @@ class WebCrawler:
         await asyncio.sleep(10)  # 10 second delay before logout
         
         # Logout
-        await self.find_logout_button(page)
+        await self.handle_logout(page)
+        
+        # Wait for logout to complete
+        await asyncio.sleep(2)
 
     async def explore_page(self, page: Page, depth: int = 0, max_depth: int = 5):
         """Explore a single page by clicking all clickable elements"""
@@ -584,53 +556,71 @@ class WebCrawler:
         """Get clicked elements for current user"""
         return self.clicked_elements_by_user.get(self.current_user, set())
 
-    async def crawl(self):
-        """Main crawling function"""
+    async def run(self):
+        """Run the web crawler"""
         async with async_playwright() as p:
             browser = await p.chromium.launch(
-                headless=False,
+                headless=False,  # Set to True for headless mode
                 args=['--start-maximized']
             )
+            
             context = await browser.new_context(
-                viewport={'width': 1280, 'height': 720}
+                viewport={'width': 1920, 'height': 1080}
             )
+            
+            # Create a new page
             page = await context.new_page()
             
-            # Set timeouts on the page
-            page.set_default_navigation_timeout(5000)
-            page.set_default_timeout(3000)
+            # Set up request interception
+            await page.route("**/*", self.route_handler)
             
-            # Setup request/response monitoring
-            page.on('request', self.log_request)
-            page.on('response', self.log_response)
-            
-            # Explore site with each set of credentials
+            # Explore with each set of credentials
             for credentials in self.credentials:
                 await self.explore_as_user(page, credentials)
-            
-            print("\n✅ Crawl complete!")
-            print("\nPages visited by user:")
-            for username, urls in self.visited_urls_by_user.items():
-                print(f"\n👤 {username}:")
-                for url in sorted(urls):
-                    print(f"  - {url}")
+                
+                # Print pages visited by this user
+                print(f"\nPages visited by user {credentials['username']}:")
+                if credentials['username'] in self.visited_urls_by_user:
+                    for url in self.visited_urls_by_user[credentials['username']]:
+                        print(f"  - {url}")
+                else:
+                    print("  No pages visited")
+                
+                print("\n---\n")  # Separator between users
             
             # Save network log
             log_file = self.save_network_log()
             print(f"\nNetwork log saved to: {log_file}")
             
-            # Reduced final delay from 30s to 5s
             print("\nKeeping browser open for 5 seconds...")
             await asyncio.sleep(5)
             
             await browser.close()
+
+    def save_network_log(self):
+        """Save the network log to a JSON file"""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'network_log_{timestamp}.json'
+        
+        with open(filename, 'w') as f:
+            json.dump({
+                'metadata': {
+                    'start_url': self.start_url,
+                    'timestamp': datetime.now().isoformat(),
+                    'total_requests': self.request_counter
+                },
+                'requests': self.network_log
+            }, f, indent=2)
+        
+        print(f"\n💾 Saved network log to {filename}")
+        return filename
 
 async def main():
     # Replace with your target website
     target_url = "http://localhost:3000/"
     credentials_file = "credentials.csv"
     crawler = WebCrawler(target_url, credentials_file)
-    await crawler.crawl()
+    await crawler.run()
 
 if __name__ == "__main__":
     asyncio.run(main())
